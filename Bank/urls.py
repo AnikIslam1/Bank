@@ -20,7 +20,5 @@ from Transection import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.process_payment, name='payment'),
-    path('', include('Transection.urls'), name='history'),
-    
-    
+    path('', include('Transection.urls'), name='history'), 
 ]

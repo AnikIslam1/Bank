@@ -29,13 +29,15 @@ def process_payment(request):
 
     with transaction.atomic():
       Sender_Name.balance -= z
+      Sender_Name.last_transection = z
       Sender_Name.save()
 
       Receiver_Name.balance += z
+      Receiver_Name.last_transection = z
       Receiver_Name.save()
 
-      # customer.objects.filter(name=x).update(balance=F('balance') - z)
-      # customer.objects.filter(name=y).update(balance=F('balance') + z)
+      #customer.objects.filter(name=x).update(balance=F('balance') - z)
+      #customer.objects.filter(name=y).update(balance=F('balance') + z)
 
       return HttpResponseRedirect('/')
 
@@ -45,10 +47,12 @@ def process_payment(request):
   return render(request, 'index.html', {'form': form})
 
 #Rest API
-class User_History(generics.ListCreateAPIView):
+class User(generics.ListCreateAPIView):
   queryset = customer.objects.all()
   serializer_class = CustomerSerializer
+
 
 class Customer_Details(generics.RetrieveUpdateDestroyAPIView):
     queryset = customer.objects.all()
     serializer_class = CustomerSerializer
+
