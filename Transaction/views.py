@@ -29,11 +29,11 @@ def process_payment(request):
 
     with transaction.atomic():
       Sender_Name.balance -= z
-      Sender_Name.last_transection = z
+      Sender_Name.transaction = z
       Sender_Name.save()
 
       Receiver_Name.balance += z
-      Receiver_Name.last_transection = z
+      Receiver_Name.transaction = z
       Receiver_Name.save()
 
       #customer.objects.filter(name=x).update(balance=F('balance') - z)

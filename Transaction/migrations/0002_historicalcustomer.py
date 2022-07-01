@@ -3,14 +3,14 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import simple_history.models
+
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('Transection', '0001_initial'),
+        ('Transaction', '0001_initial'),
     ]
 
     operations = [
@@ -34,6 +34,6 @@ class Migration(migrations.Migration):
                 'ordering': ('-history_date', '-history_id'),
                 'get_latest_by': ('history_date', 'history_id'),
             },
-            bases=(simple_history.models.HistoricalChanges, models.Model),
+            
         ),
     ]
