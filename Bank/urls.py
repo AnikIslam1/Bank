@@ -19,6 +19,6 @@ from Transaction import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.process_payment, name='payment'),
+    path('payment/', views.process_payment, name='payment'),
     path('', include('Transaction.urls'), name='history'), 
 ]

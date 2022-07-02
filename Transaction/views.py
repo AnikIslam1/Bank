@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import Payment
-from .models import customer
+from .models import account
 from django.db.models import F
 import decimal
 from django.db import transaction
@@ -24,16 +24,14 @@ def process_payment(request):
       y = form.cleaned_data['Receiver_Name']
       z = decimal.Decimal(form.cleaned_data['amount'])
 
-      Sender_Name = customer.objects.select_for_update().get(name=x)
-      Receiver_Name = customer.objects.select_for_update().get(name=y)
+      Sender_Name = account.objects.select_for_update().get(name=x)
+      Receiver_Name = account.objects.select_for_update().get(name=y)
 
     with transaction.atomic():
       Sender_Name.balance -= z
-      Sender_Name.transaction = z
       Sender_Name.save()
 
       Receiver_Name.balance += z
-      Receiver_Name.transaction = z
       Receiver_Name.save()
 
       #customer.objects.filter(name=x).update(balance=F('balance') - z)
@@ -47,12 +45,12 @@ def process_payment(request):
   return render(request, 'index.html', {'form': form})
 
 #Rest API
-class User(generics.ListCreateAPIView):
-  queryset = customer.objects.all()
+class Account(generics.ListCreateAPIView):
+  queryset = account.objects.all()
   serializer_class = CustomerSerializer
 
 
-class Customer_Details(generics.RetrieveUpdateDestroyAPIView):
-    queryset = customer.objects.all()
+class Account_Details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = account.objects.all()
     serializer_class = CustomerSerializer
 

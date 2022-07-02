@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import customer
+from .models import account
 
-class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'balance')
-admin.site.register(customer, CustomerAdmin)
+class AccountAdmin(admin.ModelAdmin):
+    list_display = ('user', 'balance')
+admin.site.register(account, AccountAdmin)

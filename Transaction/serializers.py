@@ -1,10 +1,10 @@
 from turtle import update
 from rest_framework import serializers
-from .models import customer
+from .models import account
 
 
 class CustomerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = customer
-        fields = ['pk','name', 'balance','transaction']
+        model = account
+        fields = ['pk','user', 'balance']
 
