@@ -20,19 +20,19 @@ def process_payment(request):
     form = Payment(request.POST)
 
     if form.is_valid():
-      x = form.cleaned_data['Sender_Name']
-      y = form.cleaned_data['Receiver_Name']
+      x = form.cleaned_data['Sender_Phone']
+      y = form.cleaned_data['Receiver_Phone']
       z = decimal.Decimal(form.cleaned_data['amount'])
 
-      Sender_Name = account.objects.select_for_update().get(name=x)
-      Receiver_Name = account.objects.select_for_update().get(name=y)
+      Sender_Phone = account.objects.select_for_update().get(phone=x)
+      Receiver_Phone = account.objects.select_for_update().get(phone=y)
 
     with transaction.atomic():
-      Sender_Name.balance -= z
-      Sender_Name.save()
+      Sender_Phone.balance -= z
+      Sender_Phone.save()
 
-      Receiver_Name.balance += z
-      Receiver_Name.save()
+      Receiver_Phone.balance += z
+      Receiver_Phone.save()
 
       #customer.objects.filter(name=x).update(balance=F('balance') - z)
       #customer.objects.filter(name=y).update(balance=F('balance') + z)
