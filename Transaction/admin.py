@@ -4,5 +4,5 @@ from django.contrib import admin
 from .models import account
 
 class AccountAdmin(admin.ModelAdmin):
-    list_display = ('user', 'balance')
+    list_display = ('user','phone','balance')
 admin.site.register(account, AccountAdmin)
