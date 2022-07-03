@@ -5,11 +5,13 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import Payment
 from .models import account
+from .models import History
 from django.db.models import F
 import decimal
 from django.db import transaction
 from rest_framework import generics
 from .serializers import UserSerializer
+from .serializers import HistorySerializer
 
 
 #transection function
@@ -31,10 +33,12 @@ def process_payment(request):
     with transaction.atomic():
       
       
-      Sender_Phone.history = h
+      History.objects.select_for_update().get(history=h)
+      History.save()
+
       Sender_Phone.balance -= z
       Sender_Phone.save()
-      Receiver_Phone.history = h
+      
       Receiver_Phone.balance += z
       Receiver_Phone.save()
 
@@ -57,4 +61,12 @@ class Account_User(generics.ListCreateAPIView):
 class Account_Details(generics.RetrieveUpdateDestroyAPIView):
     queryset = account.objects.all()
     serializer_class = UserSerializer
+
+class History_User(generics.ListCreateAPIView):
+  queryset = History.objects.all()
+  serializer_class = HistorySerializer
+
+class History_Details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = History.objects.all()
+    serializer_class = HistorySerializer
 
