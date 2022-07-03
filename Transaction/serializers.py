@@ -11,5 +11,5 @@ class UserSerializer(serializers.ModelSerializer):
 class HistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = History
-        fields = ['pk','Record','history']
+        fields = ['pk','history']
 

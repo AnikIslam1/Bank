@@ -25,7 +25,6 @@ def process_payment(request):
       x = form.cleaned_data['Sender_Phone']
       y = form.cleaned_data['Receiver_Phone']
       z = decimal.Decimal(form.cleaned_data['amount'])
-      h = "Phone {} send {}TK amount to Phone {}".format(x,z,y)
       Sender_Phone = account.objects.select_for_update().get(phone=x)
       Receiver_Phone = account.objects.select_for_update().get(phone=y)
       
@@ -33,9 +32,8 @@ def process_payment(request):
     with transaction.atomic():
       
       
-      History.objects.select_for_update().get(history=h)
-      History.save()
-
+      h = "Phone {} send {}TK amount to Phone {}".format(x,z,y)
+      History.objects.create(history=h)
       Sender_Phone.balance -= z
       Sender_Phone.save()
       

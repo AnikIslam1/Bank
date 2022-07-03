@@ -9,5 +9,5 @@ class AccountAdmin(admin.ModelAdmin):
 admin.site.register(account, AccountAdmin)
 
 class HistoryAdmin(admin.ModelAdmin):
-    list_display = ('Record','history')
+    list_display = ('pk','history')
 admin.site.register(History, HistoryAdmin)
