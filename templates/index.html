@@ -18,10 +18,22 @@
     <table>
     {{ form.as_table }}
     </table>
-    <input type="submit" value="Submit">
-    <input type="time" id="appt" name="appt">
+    <input type="submit" value="Submit Now">
 </form>
 </div>
+<div class="container pt-5" style="max-width:400px">
+  <form method="put">
+      {% csrf_token %}
+      <table>
+      {{ form.as_table }}
+      </table>
+      <label for="appt">Select a time:</label>
+      <input type="time" id="appt" name="appt">
+      <input type="submit" value="Submit in time">
+      
+      
+  </form>
+  </div>
 
 
 {% comment %} <form method="post" novalidate>
@@ -30,11 +42,24 @@
     <input type="text" value="">
     <label for="Receiver_Phone">Name: </label>
     <input type="text" value="">
-    <label for="topay">Amount to pay: </label>
+    
     <input type="text" value="">
     <input type="submit" value="Submit">
     <label for="appt">Select a time:</label>
+    <input type="button" value="Submit in time">
     
+    
+</form> {% endcomment %}
+{% comment %} <form method="PUT" novalidate>
+  {% csrf_token %}
+  <label for="Sender_Phone">Name: </label>
+  <input type="text" value="">
+  <label for="Receiver_Phone">Name: </label>
+  <input type="text" value="">
+  <label for="appt">Select a time:</label>
+  <input type="submit" value="Submit in time">
+  
+  
 </form> {% endcomment %}
 
     <!-- Optional JavaScript; choose one of the two! -->

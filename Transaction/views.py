@@ -12,6 +12,9 @@ from django.db import transaction
 from rest_framework import generics
 from .serializers import UserSerializer
 from .serializers import HistorySerializer
+import schedule
+import time
+
 
 
 #transection function
@@ -30,8 +33,7 @@ def process_payment(request):
       
 
     with transaction.atomic():
-      
-      
+    
       h = "Phone {} send {}TK amount to Phone {}".format(x,z,y)
       History.objects.create(history=h)
       Sender_Phone.balance -= z
@@ -45,11 +47,21 @@ def process_payment(request):
       #customer.objects.filter(name=y).update(balance=F('balance') + z)
 
       return HttpResponseRedirect('/')
-
+  elif request.method == 'PUT':
+    #Time
+    t = form.cleaned_data['']
+    schedule.every().day.at("10:30").do(request)
+    while True:
+      schedule.run_pending()
+      time.sleep(1)
   else:
     form = Payment()
 
   return render(request, 'index.html', {'form': form})
+
+    
+
+
 #Rest API
 class Account_User(generics.ListCreateAPIView):
   queryset = account.objects.all()
