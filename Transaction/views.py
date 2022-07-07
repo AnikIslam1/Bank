@@ -47,13 +47,9 @@ def process_payment(request):
       #customer.objects.filter(name=y).update(balance=F('balance') + z)
 
       return HttpResponseRedirect('/')
-  elif request.method == 'PUT':
-    #Time
-    t = form.cleaned_data['']
-    schedule.every().day.at("10:30").do(request)
-    while True:
-      schedule.run_pending()
-      time.sleep(1)
+
+    
+    
   else:
     form = Payment()
 
